@@ -26,8 +26,10 @@ const contactSchema = new mongoose.Schema({
     min: 6,
     max: 1024,
   },
-  location: {
-  },
+  location : {
+     type : Point ,
+    coordinates : [ 124.6682391 , -17.8978304]
+  }
 });
 
 module.exports = mongoose.model('Contact', contactSchema);
