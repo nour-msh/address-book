@@ -14,12 +14,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  contacts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Contact",
-    },
-  ],
+  token:{
+    type: String,
+  },
+  contacts: [{
+    type: mongoose.Types.ObjectId,
+    ref: 'Contact'
+  }]
 });
 
 const User = mongoose.model("User", userSchema);

@@ -22,10 +22,10 @@ const contactSchema = new mongoose.Schema({
   //    type : Point ,
   //   coordinates : [ 124.6682391 , -17.8978304]
   // }
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
+  users:[{
+    type: mongoose.Types.ObjectId,
     ref: 'User'
-  },
+  }]
 });
 
 module.exports = mongoose.model('Contact', contactSchema);

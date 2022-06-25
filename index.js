@@ -1,11 +1,16 @@
 const express = require("express");
 const app = express();
-const port = 3000;
-const contactRouter = require("./src/user/router");
-
+const port = 5000;
+const contactRouter = require("./src/contact/router");
+const userRouter = require("./src/user/router")
+// require("dotenv").config();
+// const cors = require('cors');
 app.use(express.json());
 
-app.use("/api/v1", contactRouter);
+
+
+app.use("/api/contact", contactRouter);
+app.use("/api/user", userRouter);
 const mongoose = require("mongoose");
 mongoose
   .connect(
