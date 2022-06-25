@@ -1,6 +1,6 @@
 const { Router, application } = require("express");
 const router = Router();
-const Contact = require("../../model/Contact");
+require("dotenv").config();
 const { User } = require("../../model/User");
 
 
@@ -24,7 +24,7 @@ router.post("/register", async(req,res)=>{
       });
       user.token=token;
 
-      res.statur(201).json(user);
+      res.status(201).json(user);
     }catch(err){
       console.log(err);
     }
