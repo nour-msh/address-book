@@ -33,5 +33,36 @@ router.delete('/', async (req ,res)=>{
       })
 
 
+async function getContacts() {
+  return await Contact.find();
+}
+
+async function getById(id) {
+  return await Contact.findById(id);
+}
+      
+
+router.get('/', async (req, res)=> {
+        try {
+          console.log(req.query);
+      
+          if (req.query.id) {
+            const id = req.query.id;
+            const result = await getById(id);
+            console.log(result);
+            return res.send(result);
+          }
+      
+          const result = await getContacts();
+          console.log(result);
+      
+          return res.send(result);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      )
+
+
 
 module.exports = router;

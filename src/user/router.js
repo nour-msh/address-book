@@ -40,6 +40,12 @@ router.post("/register", async(req,res)=>{
   }
 })
 
+async function getByEmail(email) {
+  return await User.findOne({
+    email
+  });
+}
+
 router.post("/login", async(req,res)=>{
   try {
     const user = await getByEmail(req.body.email);
@@ -50,7 +56,7 @@ router.post("/login", async(req,res)=>{
 
     const token = jwt.sign(
       {_id: user._id, name: user.name, email: user.email},
-      TOKEN_SECRET
+      TOKEN_KEY
     );
 
     return res.header('auth-token', token).send(token);
