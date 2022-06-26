@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5000;
+const port = 3100;
 const contactRouter = require("./src/contact/router");
 const userRouter = require("./src/user/router")
 require("dotenv").config();

@@ -1,33 +1,45 @@
 const { Router, application } = require("express");
 const router = Router();
 require("dotenv").config();
-const { User } = require("../../model/User");
+const  User  = require("../../model/User");
+const bcrypt=require("bcrypt")
+const jwt = require('jsonwebtoken');
+const TOKEN_KEY = process.env.TOKEN_KEY || "";
 
+
+
+async function addUser(body, hashPassword) {
+  const {
+    name,
+    email,
+  } = body;
+
+  const user = new User({
+    name,
+    email,
+    password: hashPassword
+  });
+
+  return await user.save();
+}
 
 router.post("/register", async(req,res)=>{
-  try{
-    const{name,email,password}=req.body;
-    if(!(name && email && password)){
-      res.status(400).send("All input is required");
-    }
-    encryptedPassword= await bcrypt.hash(password,10);
-    const user= await User.create({
-      name,
-      email,
-      password: encryptedPassword,
-    });
-    const token= jwt.sign(
-      { user_id: user._id, email},
-      process.env.TOKEN_KEY,
-      {
-        expiresIn:"2h",
-      });
-      user.token=token;
 
-      res.status(201).json(user);
-    }catch(err){
-      console.log(err);
-    }
-  });
+  try {
+    console.log(req.body);
+
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+    const addUserResult = await addUser(req.body, hashPassword);
+    console.log('addUserResult =>', addUserResult);
+    
+    return res.send({ user: addUserResult._id });
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+
 
 module.exports = router;
