@@ -18,19 +18,24 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete('/', async (req ,res)=>{
-        try {
-          const contact = await Contact.findOne({ _id: req.query.id });
+// async function getByEmail(email) {
+//   return await Contact.findOne({
+//     email
+//   });
+// }
+
+
+// router.delete('/', async (req ,res)=>{
+//         try {
+//           const contact = await getByEmail({ id: req.query.id });
       
-          const deleteResult = await contact.remove();
+//           const deleteResult = await contact.remove();
       
-          await User.updateMany({ _id: contact.users }, { $pull: { contacts: contact._id } });
-      
-          return res.send("contact removed");
-        } catch (error) {
-          console.log(error);
-        }
-      })
+//           return res.send("contact removed");
+//         } catch (error) {
+//           console.log(error);
+//         }
+//       })
 
 
 async function getContacts() {
